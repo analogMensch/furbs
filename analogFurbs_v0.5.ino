@@ -52,6 +52,7 @@ int mode = 0;
 int actionMode = 0;
 int chatlogin = 0;
 int basicanswer = 0;
+int basicanswerlast = 0;
 const int nightshift = 2500; //light level for night
 const int dayshift = 2000;  //light level for day
 unsigned long dizzydelay = 5000;  //time between night and dizzy
@@ -604,7 +605,10 @@ void chatcommands() {
         else {
           earwiggleright();
         }
-        basicanswer = random(sizeof(furbyNamesAnswers) / sizeof(char*));
+        while (basicanswer == basicanswerlast) {
+          basicanswer = random(sizeof(furbyNamesAnswers) / sizeof(char*));
+        }
+        basicanswerlast = basicanswer;
         sendTwitchMessage(furbyNamesAnswers[basicanswer]);
       } 
     }
